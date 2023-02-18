@@ -15,6 +15,8 @@ import { Link } from "react-router-dom";
 import { DarkModeContext } from "../../context/darkModeContext";
 import { useContext } from "react";
 
+
+
 const Sidebar = () => {
   const { dispatch } = useContext(DarkModeContext);
   return (
@@ -30,7 +32,9 @@ const Sidebar = () => {
           <p className="title">MAIN</p>
           <li>
             <DashboardIcon className="icon" />
-            <span>Dashboard</span>
+            <Link to="/" style={{ textDecoration: "none" }}>
+              <span>Dashboard</span>
+            </Link>
           </li>
           <p className="title">LISTS</p>
           <Link to="/users" style={{ textDecoration: "none" }}>
