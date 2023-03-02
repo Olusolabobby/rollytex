@@ -14,11 +14,11 @@ import {db} from "../../firebase";
 const Navbar = () => {
   const { dispatch } = useContext(DarkModeContext);
 
-  const [users, setUsers] = useState([]);
+  const [user, setUser] = useState([]);
 
 
 
-  // const authUser = JSON.parse(localStorage.getItem('user'))?.userInfo
+  const authUser = JSON.parse(localStorage.getItem('user'));
   // console.log(authUser);
 
   useEffect ( ()=> {
@@ -27,7 +27,7 @@ const Navbar = () => {
         const collectionRef = await collection(db, "users");
         onSnapshot(collectionRef, (snapshot) => {
           const data = snapshot.docs.map((doc) => ({...doc.data(), id: doc.id}))
-          setUsers(data)
+          setUser(data.filter(user => user.id === authUser.uid)[0])
           // console.log(list);
         })
       }catch(err){
@@ -71,15 +71,17 @@ const Navbar = () => {
           <div className="item">
             <ListOutlinedIcon className="icon" />
           </div>
-          {users && users.map((user) => (
+
+          {user?.id &&
           <div className="item" key={user.id}>
-            {user?.img && <img
+            {user?.img ? <img
               src={user.img}
               alt=""
               className="avatar"
-            />}
+            /> : <div>{user?.displayName?.slice(0, 2).toUpperCase()}</div>}
           </div>
-          ))}
+          }
+
         </div>
       </div>
     </div>

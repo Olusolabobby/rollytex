@@ -13,13 +13,14 @@ export const AuthContextProvider = ({ children }) => {
     const [state, dispatch] = useReducer(AuthReducer, INITIAL_STATE);
 
     useEffect( ()=>{
+        // console.log('state.currentUser', state.currentUser);
         if(state?.currentUser?.uid){
             const collectionRef = collection(db, "users");
             onSnapshot(collectionRef, (snapshot) => {
                 const data = snapshot.docs.map((doc) => ({...doc.data(), id: doc.id}))
-                console.log('state?.currentUser?.uid', state?.currentUser?.uid)
+                // console.log('state?.currentUser?.uid', state?.currentUser?.uid)
                 const authUser = data?.filter((user)=> user?.id === state?.currentUser?.uid)
-                console.log(authUser,data)
+                // console.log(authUser,data)
                 localStorage.setItem("user", JSON.stringify({...state?.currentUser,
                     userInfo : authUser?.[0]}))
                 && authUser?.[0]

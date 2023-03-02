@@ -2,21 +2,21 @@ import "./datatable.scss";
 import { DataGrid } from "@mui/x-data-grid";
 import { userColumns, userRows } from "../../datatablesource";
 import { Link } from "react-router-dom";
-import { useState, useEffect } from "react";
+import {useState, useEffect, useContext} from "react";
 import { collection, getDocs, onSnapshot, doc, deleteDoc } from "firebase/firestore";
 import {db} from "../../firebase";
+import {AuthContext} from "../../context/AuthContext";
 
 
 
 const Datatable = () => {
     const [data, setData] = useState([]);
-    const [showInfo, setShowInfo] = useState(false);
-    const [userToShow, setUserToShow] = useState({});
-    const [user, setUser] = useState([]);
+    const {dispatch} = useContext(AuthContext)
+
 
     const authUser = JSON.parse(localStorage.getItem ('user'))?.userInfo
     // const users = JSON.parse(localStorage.getItem ('users'))
-    console.log(authUser);
+    // console.log(authUser);
 
     useEffect( ()=> {
         // const fetchData = async () => {
@@ -51,7 +51,7 @@ const Datatable = () => {
         }
     }, []);
 
-    console.log(data);
+    // console.log(data);
 
     const handleDelete = async(id) => {
         try{
@@ -77,7 +77,7 @@ const Datatable = () => {
                 return (
                     <div className="cellAction">
                         {/*{console.log(params, 'params')}*/}
-                        <Link to="/users/test" style={{ textDecoration: "none" }} onClick={()=>console.log(params.row.id)}>
+                        <Link to="/users/test" style={{ textDecoration: "none" }} onClick={()=>dispatch({type: "SHOW", payload:params.row.id})}>
                             <div className="viewButton" >View</div>
                         </Link>
                         <div

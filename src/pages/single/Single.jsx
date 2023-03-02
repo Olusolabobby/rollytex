@@ -3,13 +3,21 @@ import Sidebar from "../../components/sidebar/Sidebar";
 import Navbar from "../../components/navbar/Navbar";
 import Chart from "../../components/chart/Chart";
 import List from "../../components/table/Table";
-import React, {useEffect, useState} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import {db} from "../../firebase";
-import {collection, getDocs, onSnapshot} from "firebase/firestore";
+import {collection, setDoc, doc, onSnapshot} from "firebase/firestore";
+import {AuthContext} from "../../context/AuthContext";
+import {setFormData} from "../../jsHelpers/js-Helpers";
 
 const Single = () => {
 
-  const [users, setUsers] = useState([]);
+  const [user, setUser] = useState([]);
+  const [editId, setEditId] = useState('');
+  const [editFormValues, setEditFormValues] = useState({});
+
+
+  const userIDToShow = useContext(AuthContext).currentUser.idToShow;
+  // console.log('userIDToShow',userIDToShow)
 
   // const authUser = JSON.parse(localStorage.getItem ('user'))?.userInfo;
   // console.log(authUser)
@@ -21,9 +29,9 @@ const Single = () => {
         const collectionRef = await collection(db, "users");
         onSnapshot(collectionRef, (snapshot) => {
           const data = snapshot.docs.map((doc) => ({...doc.data(), id: doc.id}))
-          setUsers(data)
+          setUser(data?.filter(user => user?.id === userIDToShow))
           // console.log(list);
-        })
+        });
       }catch(err){
         console.log(err);
       }
@@ -31,6 +39,17 @@ const Single = () => {
     fetchData();
   }, [])
 
+  const editUser = async(id, newUser = editFormValues) => {
+    const docRef = doc(db,"users",id);
+    console.log('editFormValues', newUser);
+    await setDoc(docRef, newUser)
+  }
+
+  const handleSaveEdit = async (id, newUser) => {
+    await editUser(id, newUser);
+    setEditId('');
+    setEditFormValues({});
+  }
 
   return (
       <div className="single">
@@ -39,45 +58,13 @@ const Single = () => {
           <Navbar />
           <div className="top">
             <div className="left">
-              <div className="editButton">Edit</div>
-              <h1 className="title">Information</h1>
+              <div className="editButton" onClick={ ()=> console.log(setEditId(user.id))}>Edit</div>
+              <h1 className="title" >Information</h1>
 
 
-              {/*{showInfo &&*/}
-              {/*    <div className="item" key={user.id}>*/}
-              {/*      {user?.img && <img*/}
-              {/*          src={user.img}*/}
-              {/*          alt=""*/}
-              {/*          className="itemImg"*/}
-              {/*      />}*/}
-              {/*      <div className="details">*/}
-              {/*        <h1 className="itemTitle">{userToShow.displayName}</h1>*/}
-              {/*        <div className="detailItem">*/}
-              {/*          <span className="itemKey">Email:</span>*/}
-              {/*          <span className="itemValue">{userToShow.email}</span>*/}
-              {/*        </div>*/}
-              {/*        <div className="detailItem">*/}
-              {/*          <span className="itemKey">Phone:</span>*/}
-              {/*          <span className="itemValue">{userToShow.phone}</span>*/}
-              {/*        </div>*/}
-              {/*        <div className="detailItem">*/}
-              {/*          <span className="itemKey">Address:</span>*/}
-              {/*          <span className="itemValue">*/}
-              {/*          {userToShow.address}*/}
-              {/*        </span>*/}
-              {/*        </div>*/}
-              {/*        <div className="detailItem">*/}
-              {/*          <span className="itemKey">Country:</span>*/}
-              {/*          <span className="itemValue">{userToShow.country}</span>*/}
-              {/*        </div>*/}
-              {/*      </div>*/}
-              {/*    </div>*/}
-              {/* }*/}
-
-
-              {users && users.map((user) => (
-
-                  <div className="item" key={user.id}>
+              {user && user.map((user) => (
+                  editId !== user?.id
+                  ? (<div className="item" key={user.id}>
                     {user?.img && <img
                         src={user.img}
                         alt=""
@@ -104,7 +91,20 @@ const Single = () => {
                         <span className="itemValue">{user.country}</span>
                       </div>
                     </div>
-                  </div>
+                  </div>)
+                      :
+                      (<div>
+                        <div className="detailItem">
+                          <span className="itemKey">FullName</span>
+                          <input value={ editFormValues?.displayName}
+                          onChange={ (e)=> setFormData(e.target.value, 'displayName',setEditFormValues)}
+                          />
+                        </div>
+
+
+                        <button type='button' onClick={()=>handleSaveEdit(user.id)}>Save Edit</button>
+
+                      </div>)
               )) }
 
 

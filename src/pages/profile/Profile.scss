@@ -1,0 +1,41 @@
+.profile{
+  height: 80%;
+  width: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+
+  .profileItems{
+      height: 100%;
+      width: 60%;
+      line-height: 2;
+      font-size: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+
+      h1{
+        font-family: sans-serif;
+      }
+      img{
+        height: 40%;
+        width: 40%;
+        border-radius: 5%;
+        object-fit: cover;
+
+      }
+
+
+      .itemKey{
+        font-weight: 300;
+        font-size: 16px;
+      }
+      .itemValue{
+        font-weight: 500;
+
+
+      }
+  }
+
+}
