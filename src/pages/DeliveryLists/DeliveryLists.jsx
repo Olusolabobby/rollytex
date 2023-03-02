@@ -5,6 +5,7 @@ import Datatable from "../../components/datatable/Datatable"
 import ProductDatatable from "../../components/Product/ProductDatatable";
 import Orders from "../Orders/Orders";
 import Delivery from "../Delivery/Delivery";
+import DeliveryDatatable from "../../components/Delivery/DeliveryDatatable";
 
 const DeliveryLists = () => {
     return (
@@ -12,7 +13,7 @@ const DeliveryLists = () => {
             <Sidebar/>
             <div className="listContainer">
                 <Navbar/>
-                <Delivery/>
+                <DeliveryDatatable />
             </div>
         </div>
     )

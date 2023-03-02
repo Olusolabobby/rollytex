@@ -4,6 +4,7 @@ import Navbar from "../../components/navbar/Navbar"
 import Datatable from "../../components/datatable/Datatable"
 import ProductDatatable from "../../components/Product/ProductDatatable";
 import Orders from "../Orders/Orders";
+import OrdersDatatable from "../../components/Orders/OrdersDatatable";
 
 const OrdersLists = () => {
     return (
@@ -11,7 +12,7 @@ const OrdersLists = () => {
             <Sidebar/>
             <div className="listContainer">
                 <Navbar/>
-                <Orders/>
+                <OrdersDatatable/>
             </div>
         </div>
     )

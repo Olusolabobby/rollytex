@@ -41,7 +41,8 @@ const Single = () => {
 
   const editUser = async(id, newUser = editFormValues) => {
     const docRef = doc(db,"users",id);
-    console.log('editFormValues', newUser);
+    console.log('docRef', docRef);
+    // console.log('editFormValues', newUser);
     await setDoc(docRef, newUser)
   }
 
@@ -58,7 +59,7 @@ const Single = () => {
           <Navbar />
           <div className="top">
             <div className="left">
-              <div className="editButton" onClick={ ()=> console.log(setEditId(user.id))}>Edit</div>
+              <div className="editButton" onClick={ ()=> console.log(setEditId(user?.id))}>Edit</div>
               <h1 className="title" >Information</h1>
 
 
@@ -102,7 +103,7 @@ const Single = () => {
                         </div>
 
 
-                        <button type='button' onClick={()=>handleSaveEdit(user.id)}>Save Edit</button>
+                        {/*<button type='button' onClick={()=>handleSaveEdit(user.id)}>Save Edit</button>*/}
 
                       </div>)
               )) }
