@@ -10,6 +10,9 @@ import { useContext } from "react";
 import { DarkModeContext } from "./context/darkModeContext";
 import {AuthContext} from "./context/AuthContext";
 import ProductLists from "./pages/ProductsLists/ProductLists";
+import ProfileLists from "./pages/ProfileLists/ProfileLists";
+import OrdersLists from "./pages/OrdersLists/OrdersLists";
+import DeliveryLists from "./pages/DeliveryLists/DeliveryLists";
 
 function App() {
   const { darkMode } = useContext(DarkModeContext);
@@ -29,14 +32,19 @@ function App() {
           <Route path="/">
             <Route path="login" element={<Login />} />
             <Route index element={ <RequireAuth> <Home /> </RequireAuth>} />
+
             <Route path="users">
               <Route index element={<RequireAuth> <List /> </RequireAuth>} />
               <Route path=":userId" element={<RequireAuth> <Single /> </RequireAuth>} />
               <Route
                 path="new"
                 element={<RequireAuth> <New inputs={userInputs} title="Add New User" /> </RequireAuth>} />
-
             </Route>
+
+            <Route path="profile" element={<RequireAuth> <ProfileLists/> </RequireAuth>} />
+            <Route path="orders" element={<RequireAuth> <OrdersLists/> </RequireAuth>} />
+            <Route path="delivery" element={<RequireAuth> <DeliveryLists/> </RequireAuth>} />
+
             <Route path="products">
               <Route index element={<RequireAuth> <ProductLists /> </RequireAuth>} />
               <Route path=":productId" element={<RequireAuth> <Single /> </RequireAuth>} />

@@ -53,21 +53,27 @@ const Sidebar = () => {
               <span>Products</span>
             </li>
           </Link>
+          <Link to="/orders" style={{ textDecoration: "none" }}>
           <li>
             <CreditCardIcon className="icon" />
             <span>Orders</span>
           </li>
+          </Link>
+          <Link to="/delivery" style={{ textDecoration: "none" }}>
           <li>
             <LocalShippingIcon className="icon" />
             <span>Delivery</span>
           </li>
+          </Link>
 
 
           <p className="title">USER</p>
+          <Link to="/profile" style={{textDecoration: "none"}}>
           <li>
             <AccountCircleOutlinedIcon className="icon" />
             <span>Profile</span>
           </li>
+          </Link>
           <li>
             <ExitToAppIcon className="icon" />
             <span onClick={ ()=> logOutUser(navigate)}>Logout</span>

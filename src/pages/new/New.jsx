@@ -7,10 +7,12 @@ import { doc, setDoc, addDoc, collection, serverTimestamp } from "firebase/fires
 import { db, auth, storage } from "../../firebase";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import {  ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
+import {useNavigate} from "react-router-dom";
 
 
 
 const New = ({ inputs, title }) => {
+  const navigate = useNavigate();
   const [file, setFile] = useState("");
   const [error, setError] = useState(false);
   const [data, setData] = useState ({});
@@ -82,8 +84,10 @@ const New = ({ inputs, title }) => {
       // set document from firestore, to add to database
       await setDoc(doc(db, "users", res.user.uid), {
         ...data,
-        timeStamp: serverTimestamp()
+        password: '',
+        timeStamp: serverTimestamp(),
       });
+      navigate(-1);
     }catch(error){
       console.log(error);
     }

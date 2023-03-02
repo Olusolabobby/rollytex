@@ -7,10 +7,37 @@ import NotificationsNoneOutlinedIcon from "@mui/icons-material/NotificationsNone
 import ChatBubbleOutlineOutlinedIcon from "@mui/icons-material/ChatBubbleOutlineOutlined";
 import ListOutlinedIcon from "@mui/icons-material/ListOutlined";
 import { DarkModeContext } from "../../context/darkModeContext";
-import { useContext } from "react";
+import {useContext, useEffect, useState} from "react";
+import {collection, doc, getDoc, onSnapshot} from "firebase/firestore";
+import {db} from "../../firebase";
 
 const Navbar = () => {
   const { dispatch } = useContext(DarkModeContext);
+
+  const [users, setUsers] = useState([]);
+
+
+
+  // const authUser = JSON.parse(localStorage.getItem('user'))?.userInfo
+  // console.log(authUser);
+
+  useEffect ( ()=> {
+    const fetchData = async () => {
+      try{
+        const collectionRef = await collection(db, "users");
+        onSnapshot(collectionRef, (snapshot) => {
+          const data = snapshot.docs.map((doc) => ({...doc.data(), id: doc.id}))
+          setUsers(data)
+          // console.log(list);
+        })
+      }catch(err){
+        console.log(err);
+      }
+    };
+    fetchData();
+  }, [])
+
+
 
   return (
     <div className="navbar">
@@ -44,13 +71,15 @@ const Navbar = () => {
           <div className="item">
             <ListOutlinedIcon className="icon" />
           </div>
-          <div className="item">
-            <img
-              src="https://images.pexels.com/photos/941693/pexels-photo-941693.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500"
+          {users && users.map((user) => (
+          <div className="item" key={user.id}>
+            {user?.img && <img
+              src={user.img}
               alt=""
               className="avatar"
-            />
+            />}
           </div>
+          ))}
         </div>
       </div>
     </div>
