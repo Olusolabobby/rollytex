@@ -82,3 +82,44 @@
     }
   }
 }
+
+.itemKeyEdit{
+  font-weight: bold;
+  color: gray;
+  margin-right: 10px;
+
+  &.username {
+    margin-right: 5px;
+  }
+
+  &.phone{
+    margin-right: 35px;
+  }
+
+  &.email{
+    margin-right: 40px;
+  }
+
+  &.address{
+    margin-right: 20px;
+  }
+
+  &.country{
+    margin-right: 22px;
+
+  }
+}
+
+input{
+  width: 60%;
+  height: 25px;
+  outline-color: lightgray;
+}
+
+button{
+  background-color: #cefad0;
+  color: #008631;
+  border: 1px solid #008631;
+  border-radius: 3px;
+}
+
