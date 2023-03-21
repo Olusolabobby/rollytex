@@ -80,10 +80,10 @@ const DeliveryDatatable = () =>{
     return (
         <div className="datatable">
             <div className="datatableTitle">
-                Add New User
-                <Link to="/users/new" className="link">
-                    Add New
-                </Link>
+                Deliveries
+                {/*<Link to="/users/new" className="link">*/}
+                {/*    Add NewProducts*/}
+                {/*</Link>*/}
             </div>
             <DataGrid
                 className="datagrid"

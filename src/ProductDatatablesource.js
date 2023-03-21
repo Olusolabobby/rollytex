@@ -2,21 +2,21 @@ export const productColumns = [
   { field: "id", headerName: "ID", width: 70 },
   {
     field: "title",
-    headerName: "Title",
+    headerName: "Name",
     width: 230,
     renderCell: (params) => {
       return (
         <div className="cellWithImg">
           <img className="cellImg" src={params.row.img} alt="avatar" />
-          {params.row.username}
+          {params.row.title}
         </div>
       );
     },
   },
 
   {
-    field: "name",
-    headerName: "Name",
+    field: "category",
+    headerName: "Category",
     width: 200,
   },
 

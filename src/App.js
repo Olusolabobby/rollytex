@@ -2,7 +2,7 @@ import Home from "./pages/home/Home";
 import Login from "./pages/login/Login";
 import List from "./pages/list/List";
 import Single from "./pages/single/Single";
-import New from "./pages/new/New";
+import NewProducts from "./pages/newProducts/NewProducts";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { productInputs, userInputs } from "./formSource";
 import "./style/dark.scss";
@@ -13,6 +13,7 @@ import ProductLists from "./pages/ProductsLists/ProductLists";
 import ProfileLists from "./pages/ProfileLists/ProfileLists";
 import OrdersLists from "./pages/OrdersLists/OrdersLists";
 import DeliveryLists from "./pages/DeliveryLists/DeliveryLists";
+import New from "./pages/new/New";
 
 function App() {
   const { darkMode } = useContext(DarkModeContext);
@@ -38,7 +39,7 @@ function App() {
               <Route path=":userId" element={<RequireAuth> <Single /> </RequireAuth>} />
               <Route
                 path="new"
-                element={<RequireAuth> <New inputs={userInputs} title="Add New User" /> </RequireAuth>} />
+                element={<RequireAuth> <New inputs={userInputs} title="Add NewProducts User" /> </RequireAuth>} />
             </Route>
 
             <Route path="profile" element={<RequireAuth> <ProfileLists/> </RequireAuth>} />
@@ -50,7 +51,7 @@ function App() {
               <Route path=":productId" element={<RequireAuth> <Single /> </RequireAuth>} />
               <Route
                 path="new"
-                element={ <RequireAuth> <New inputs={productInputs} title="Add New Product" /> </RequireAuth>}
+                element={ <RequireAuth> <NewProducts inputs={productInputs} title="Add NewProducts Product" /> </RequireAuth>}
               />
             </Route>
           </Route>

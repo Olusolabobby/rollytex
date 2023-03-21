@@ -47,16 +47,15 @@ const Single = () => {
   const editUser = async(id, newUser = editFormValues) => {
     const docRef = doc(db,"users", id);
     // console.log('docRef', docRef);
-    console.log('editFormValues', newUser);
+    // console.log('editFormValues', newUser);
     await setDoc(docRef, newUser);
   }
 
   const handleSaveEdit = async (id, newUser) => {
-    await editUser( id, newUser);
+    await editUser( id, editFormValues);
     setEditId('');
     setEditFormValues({});
   }
-
 
   useEffect ( ()=>{
 
@@ -100,7 +99,7 @@ const Single = () => {
   }, [file]);
 
 
-
+  // console.log('user',user);
   return (
       <div className="single">
         <Sidebar />
@@ -120,7 +119,11 @@ const Single = () => {
                         className="itemImg"
                     />}
                         <div className="details">
-                      <h1 className="itemTitle">{user.displayName}</h1>
+                      <h1 className="itemTitle">{user.displayName.charAt(0).toUpperCase() + user.displayName.slice(1).toLowerCase()}</h1>
+                      <div className="detailItem">
+                         <span className="itemKey">Username:</span>
+                         <span className="itemValue">{user.username}</span>
+                      </div>
                       <div className="detailItem">
                         <span className="itemKey">Email:</span>
                         <span className="itemValue">{user.email}</span>
@@ -137,7 +140,9 @@ const Single = () => {
                         <span className="itemKey">Country:</span>
                         <span className="itemValue">{user.country}</span>
                       </div>
-                          <div className="editButton" onClick={ ()=> setEditId(user.id)}>Edit</div>
+                          <div className="editButton" onClick={ ()=> {
+                            setEditId(user.id);
+                            setEditFormValues(user)}}>Edit</div>
                     </div>
                   </div>)
                       :
@@ -149,7 +154,7 @@ const Single = () => {
                               src={
                                 file
                                     ? URL.createObjectURL(file)
-                                    : "https://icon-library.com/images/no-image-icon/no-image-icon-0.jpg"
+                                    : editFormValues.img
                               }
                               alt=""
                           />
@@ -166,37 +171,31 @@ const Single = () => {
 
                         <div className="detailItem">
                           <span className="itemKeyEdit">FullName: </span>
-                          <input value={user.displayName}
+                          <input placeholder={editFormValues.displayName}
                           onChange={ (e)=> setFormData(e.target.value, 'displayName',setEditFormValues)}
                           />
                         </div><br/>
-                        {/*<div className="detailItem">*/}
-                        {/*  <span className="itemKeyEdit username">Username: </span>*/}
-                        {/*  <input value={user.username}*/}
-                        {/*         onChange={ (e)=> setFormData(e.target.value, 'username',setEditFormValues)}*/}
-                        {/*  />*/}
-                        {/*</div><br/>*/}
+                        <div className="detailItem">
+                          <span className="itemKeyEdit username">Username: </span>
+                          <input placeholder={editFormValues.username}
+                                 onChange={ (e)=> setFormData(e.target.value, 'username',setEditFormValues)}
+                          />
+                        </div><br/>
                         <div className="detailItem">
                           <span className="itemKeyEdit phone">Phone: </span>
-                          <input value={user.phone}
+                          <input placeholder={editFormValues.phone}
                                  onChange={ (e)=> setFormData(e.target.value, 'phone',setEditFormValues)}
                           />
                         </div><br/>
-                        {/*<div className="detailItem">*/}
-                        {/*  <span className="itemKeyEdit email">Email: </span>*/}
-                        {/*  <input value={user.email}*/}
-                        {/*         onChange={ (e)=> setFormData(user.email = e.target.value, 'email', setEditFormValues)}*/}
-                        {/*  />*/}
-                        {/*</div><br/>*/}
                         <div className="detailItem">
                           <span className="itemKeyEdit address">Address: </span>
-                          <input value={user.address}
+                          <input placeholder={editFormValues.address}
                                  onChange={ (e)=> setFormData(e.target.value, 'address',setEditFormValues)}
                           />
                         </div><br/>
                         <div className="detailItem">
                           <span className="itemKeyEdit country">Country: </span>
-                          <input value={user.country}
+                          <input placeholder={editFormValues.country}
                                  onChange={ (e)=> setFormData(e.target.value, 'country',setEditFormValues)}
                           />
                         </div><br/><br/>

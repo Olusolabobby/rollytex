@@ -40,6 +40,7 @@ const Widget = ({ type }) => {
       data = {
         title: "ORDERS",
         isMoney: false,
+        query: "orders",
         // link: "View all orders",
         icon: (
           <ShoppingCartOutlinedIcon
@@ -55,6 +56,7 @@ const Widget = ({ type }) => {
     case "delivery":
       data = {
         title: "Delivery",
+        query: "delivery",
         isMoney: false,
         // link: "View net earnings",
         icon: (

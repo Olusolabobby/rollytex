@@ -15,6 +15,10 @@ const Navbar = () => {
   const { dispatch } = useContext(DarkModeContext);
 
   const [user, setUser] = useState([]);
+  const [searchInput, setSearchInput] = useState( '');
+  const [users, setUsers] = useState([]);
+  const [searchResults, setSearchResults] = useState([]);
+
 
 
 
@@ -26,8 +30,9 @@ const Navbar = () => {
       try{
         const collectionRef = await collection(db, "users");
         onSnapshot(collectionRef, (snapshot) => {
-          const data = snapshot.docs.map((doc) => ({...doc.data(), id: doc.id}))
-          setUser(data.filter(user => user.id === authUser.uid)[0])
+          const data = snapshot.docs.map((doc) => ({...doc.data(), id: doc.id}));
+          setUser(data.filter(user => user.id === authUser.uid)[0]);
+          setUsers(data);
           // console.log(list);
         })
       }catch(err){
@@ -37,14 +42,46 @@ const Navbar = () => {
     fetchData();
   }, [])
 
+  useEffect(() => {
+    const timer = setTimeout( ()=>{
+      searchInput !== '' && searchUsers()
+    }, 500)
+    return () => clearTimeout(timer)
+  }, [searchInput]);
 
+  
+  const searchUsers = (value) => {
+    console.log('searching');
+    console.log('users', users);
+    const filteredUsers = users.filter(items =>
+        (items?.displayName.toLowerCase().includes(searchInput.toLowerCase())
+        || items?.email.toLowerCase().includes(searchInput.toLowerCase())));
+        console.log('filteredUsers', filteredUsers);
+        setSearchResults(filteredUsers)
+  }
+
+
+console.log('searchInput', searchInput)
 
   return (
     <div className="navbar">
       <div className="wrapper">
-        <div className="search">
-          <input type="text" placeholder="Search..." />
-          <SearchOutlinedIcon />
+        <div className="searchBlock">
+          <div className="search">
+            <input
+                type="text"
+                placeholder="Search..."
+                value={searchInput}
+                onChange={(e)=>setSearchInput(e.target.value)} />
+            <SearchOutlinedIcon />
+          </div>
+
+          {searchResults?.length > 0 && <div className="searchResults">
+            <div className="searchBox" >
+              {searchResults.map(result => <p><img className="searchImage" src={result.img}/> {result.displayName}</p>)}
+
+            </div>
+          </div>}
         </div>
         <div className="items">
           <div className="item">
@@ -81,6 +118,8 @@ const Navbar = () => {
             /> : <div>{user?.displayName?.slice(0, 2).toUpperCase()}</div>}
           </div>
           }
+
+
 
         </div>
       </div>

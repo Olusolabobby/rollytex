@@ -113,7 +113,9 @@
 input{
   width: 60%;
   height: 25px;
-  outline-color: lightgray;
+  outline-color: #6439ff;
+  border: 0.5px solid gray;
+  color: black;
 }
 
 button{
@@ -121,5 +123,10 @@ button{
   color: #008631;
   border: 1px solid #008631;
   border-radius: 3px;
+}
+button:disabled{
+  background-color: crimson;
+  color: #ece8ff;
+
 }
 

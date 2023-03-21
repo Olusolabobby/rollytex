@@ -1,4 +1,4 @@
-import "./new.scss";
+import "./NewProducts.scss";
 import Sidebar from "../../components/sidebar/Sidebar";
 import Navbar from "../../components/navbar/Navbar";
 import DriveFolderUploadOutlinedIcon from "@mui/icons-material/DriveFolderUploadOutlined";
@@ -11,7 +11,7 @@ import {useNavigate} from "react-router-dom";
 
 
 
-const New = ({ inputs, title }) => {
+const NewProducts = ({ inputs, title }) => {
   const navigate = useNavigate();
   const [file, setFile] = useState("");
   const [error, setError] = useState(false);
@@ -69,30 +69,23 @@ const New = ({ inputs, title }) => {
   // console.log(data);
 
   const handleAdd = async(e) => {
-    e.preventDefault()
-      // add document from firestore, to text if it works
-    try{
-      // add document from firestore, to text if it works
-      // const res = await addDoc(collection(db, "cities"), {
+    e.preventDefault();
+    // const res = await addDoc(collection(db, "cities"), {
+    //   name: "Los Angeles",
+    //   state: "CA",
+    //   country: "USA"
+    // });
+    // console.log(res);// to test
 
-      // create User with email amd password.
-      const res = await createUserWithEmailAndPassword(
-          auth,
-          data.email,
-          data.password
-      );
-      // set document from firestore, to add to database
-      await setDoc(doc(db, "users", res.user.uid), {
-        ...data,
-        password: '',
-        status: 'pending',
-        timeStamp: serverTimestamp(),
-      });
-      navigate(-1);
-    }catch(error){
-      console.log(error);
-    }
-  };
+    await setDoc(doc(db, "users"), {
+      ...data,
+      status: 'pending',
+      timeStamp: serverTimestamp(),
+    });
+    navigate(-1);
+  }
+
+
 
   return (
     <div className="new">
@@ -100,7 +93,7 @@ const New = ({ inputs, title }) => {
       <div className="newContainer">
         <Navbar />
         <div className="top">
-          <h1>{title}</h1>
+          <h1>Add New Products</h1>
         </div>
         <div className="bottom">
           <div className="left">
@@ -147,4 +140,4 @@ const New = ({ inputs, title }) => {
   );
 };
 
-export default New;
+export default NewProducts;

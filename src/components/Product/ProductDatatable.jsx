@@ -48,7 +48,7 @@ const ProductsDatatable = () =>{
 
     const handleProductDelete = async(id) => {
         try{
-            await deleteDoc(doc(db, "users", id));
+            await deleteDoc(doc(db, "products", id));
             setData(data.filter((item) => item.id !== id));
         } catch (err) {
             console.log(err);
@@ -80,8 +80,8 @@ const ProductsDatatable = () =>{
     return (
         <div className="datatable">
             <div className="datatableTitle">
-                Add New User
-                <Link to="/users/new" className="link">
+                New Products
+                <Link to="/products/new" className="link">
                     Add New
                 </Link>
             </div>
