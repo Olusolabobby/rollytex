@@ -56,7 +56,7 @@ const NewProducts = ({ inputs, title }) => {
     };
     file && uploadFile();
   }, [file]);
-  
+
   // console.log(data);
 
   const handleInput = (e) => {
@@ -77,11 +77,13 @@ const NewProducts = ({ inputs, title }) => {
     // });
     // console.log(res);// to test
 
-    await setDoc(doc(db, "users"), {
+    await addDoc(collection(db, "products"), {
       ...data,
       status: 'pending',
       timeStamp: serverTimestamp(),
     });
+
+
     navigate(-1);
   }
 
