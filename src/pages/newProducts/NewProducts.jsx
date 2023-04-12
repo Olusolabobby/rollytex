@@ -70,6 +70,7 @@ const NewProducts = ({ inputs, title }) => {
 
   const handleAdd = async(e) => {
     e.preventDefault();
+    // console.log(data);
     // const res = await addDoc(collection(db, "cities"), {
     //   name: "Los Angeles",
     //   state: "CA",
@@ -82,8 +83,6 @@ const NewProducts = ({ inputs, title }) => {
       status: 'pending',
       timeStamp: serverTimestamp(),
     });
-
-
     navigate(-1);
   }
 

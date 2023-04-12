@@ -1,4 +1,4 @@
-export const OrderColumns = [
+export const DeliveryColumns = [
   { field: "id", headerName: "ID", width: 70 },
   {
     field: "product",
@@ -17,7 +17,7 @@ export const OrderColumns = [
 
   {
     field: "order",
-    headerName: "No of orders",
+    headerName: "No of delivery",
     width: 200,
   },
 
@@ -31,7 +31,7 @@ export const OrderColumns = [
 
   {
     field: "status",
-    headerName: "Status",
+    headerName: "Delivery Status",
     width: 160,
     renderCell: (params) => {
       return (

@@ -1,6 +1,6 @@
 import "./DeliveryDatatable.scss";
 import { DataGrid } from "@mui/x-data-grid";
-import { productColumns, userRows } from "../../ProductDatatablesource";
+import { DeliveryColumns, userRows } from "../../DeliveryDatatablesource";
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { collection, getDocs, onSnapshot, doc, deleteDoc } from "firebase/firestore";
@@ -28,7 +28,7 @@ const DeliveryDatatable = () =>{
         // fetchData();
         //LISTEN (REALTIME)
         const unsub = onSnapshot(
-            collection(db, "orders"),
+            collection(db, "delivery"),
             (snapShot) => {
                 let list = [];
                 snapShot.docs.forEach((doc) => {
@@ -48,7 +48,7 @@ const DeliveryDatatable = () =>{
 
     const handleProductDelete = async(id) => {
         try{
-            await deleteDoc(doc(db, "users", id));
+            await deleteDoc(doc(db, "delivery", id));
             setData(data.filter((item) => item.id !== id));
         } catch (err) {
             console.log(err);
@@ -88,7 +88,7 @@ const DeliveryDatatable = () =>{
             <DataGrid
                 className="datagrid"
                 rows={data}
-                columns={productColumns.concat(actionColumn)}
+                columns={DeliveryColumns.concat(actionColumn)}
                 pageSize={9}
                 rowsPerPageOptions={[9]}
                 checkboxSelection

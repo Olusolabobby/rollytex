@@ -68,7 +68,7 @@ export const userInputs = [
       placeholder: "100",
     },
     {
-      id: "status",
+      id: "stock",
       label: "Stock",
       type: "text",
       placeholder: "active",

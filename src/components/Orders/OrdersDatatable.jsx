@@ -1,6 +1,6 @@
 import "./OrdersDatatable.scss";
 import { DataGrid } from "@mui/x-data-grid";
-import { productColumns, userRows } from "../../ProductDatatablesource";
+import { OrderColumns, userRows } from "../../OrderDatatablesource";
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { collection, getDocs, onSnapshot, doc, deleteDoc } from "firebase/firestore";
@@ -48,7 +48,7 @@ const OrdersDatatable = () =>{
 
     const handleProductDelete = async(id) => {
         try{
-            await deleteDoc(doc(db, "users", id));
+            await deleteDoc(doc(db, "orders", id));
             setData(data.filter((item) => item.id !== id));
         } catch (err) {
             console.log(err);
@@ -88,7 +88,7 @@ const OrdersDatatable = () =>{
             <DataGrid
                 className="datagrid"
                 rows={data}
-                columns={productColumns.concat(actionColumn)}
+                columns={OrderColumns.concat(actionColumn)}
                 pageSize={9}
                 rowsPerPageOptions={[9]}
                 checkboxSelection

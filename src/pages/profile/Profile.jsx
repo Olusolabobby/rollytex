@@ -106,6 +106,7 @@ const Profile = ()=> {
                             <div className="imgItem"><img src={authUser.img} alt="" /></div>
                         </div>
 
+
                         <div className="right">
                             <div>
                                 <span className="itemKey">Full name: </span>

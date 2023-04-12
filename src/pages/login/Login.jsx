@@ -8,9 +8,6 @@ import {AuthContext} from "../../context/AuthContext";
 
 
 
-
-
-
 const Login = () => {
 
     const [error, setError] = useState(false);
@@ -44,12 +41,16 @@ const Login = () => {
 
   return (
     <div className="login">
-      <form onSubmit={handleLogin}>
-        <input type="email" placeholder="email" onChange={ e => setEmail(e.target.value)}/>
-        <input type="password" placeholder="Password" onChange={ e => setPassword (e.target.value)}/>
-          <button type="submit">Login</button>
-          {error && <span>Wrong Email or Password!</span>}
-      </form>
+        <div clasName="loginBox">
+            <form onSubmit={handleLogin}>
+                <h2>RollyTex</h2>
+                <p>please login below</p>
+                <input type="email" placeholder="email" onChange={ e => setEmail(e.target.value)}/>
+                <input type="password" placeholder="Password" onChange={ e => setPassword (e.target.value)}/>
+                <button type="submit">Login</button>
+                {error && <span>Wrong Email or Password!</span>}
+            </form>
+        </div>
     </div>
   );
 };

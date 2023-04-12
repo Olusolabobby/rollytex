@@ -1,3 +1,5 @@
+
+
 .login{
   height: 100vh;
   display: flex;
@@ -9,22 +11,30 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
+    border: 0.5px solid #6439ff;
+    height: 300px;
+    width: 350px;
+    border-radius: 5px;
+
+
 
     input {
-      width: 200px;
+      width: 250px;
       height: 30px;
       margin: 10px;
     }
 
     button{
-      width: 210px;
-      height: 30px;
+      width: 260px;
+      height: 35px;
       border: none;
-      background-color: purple;
+      background-color: #6439ff;
       color: white;
       font-weight: bold;
       cursor: pointer;
       border-radius: 2px;
+      margin: 10px;
     }
     span{
       font-size: 12px;
@@ -32,4 +42,16 @@
       margin-top: 10px;
     }
   }
+}
+
+h2{
+  color: #6439ff;
+  font-family: sans-serif;
+}
+
+p{
+  color: gray;
+  font-size: 14px;
+  font-family: sans-serif;
+  padding: 5px 0 15px 0;
 }

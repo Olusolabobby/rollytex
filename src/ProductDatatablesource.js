@@ -28,13 +28,13 @@ export const productColumns = [
 
 
   {
-    field: "status",
-    headerName: "Status",
+    field: "stock",
+    headerName: "Stock",
     width: 160,
     renderCell: (params) => {
       return (
-        <div className={`cellWithStatus ${params.row.status}`}>
-          {params.row.status}
+        <div className={`cellWithStatus ${params.row.stock}`}>
+          {params.row.stock}
         </div>
       );
     },

@@ -14,6 +14,7 @@ import ProfileLists from "./pages/ProfileLists/ProfileLists";
 import OrdersLists from "./pages/OrdersLists/OrdersLists";
 import DeliveryLists from "./pages/DeliveryLists/DeliveryLists";
 import New from "./pages/new/New";
+import ViewProductsSingle from "./pages/viewProductsSingle/ViewProductsSingle";
 
 function App() {
   const { darkMode } = useContext(DarkModeContext);
@@ -39,7 +40,7 @@ function App() {
               <Route path=":userId" element={<RequireAuth> <Single /> </RequireAuth>} />
               <Route
                 path="new"
-                element={<RequireAuth> <New inputs={userInputs} title="Add NewProducts User" /> </RequireAuth>} />
+                element={<RequireAuth> <New inputs={userInputs} title="Add New User" /> </RequireAuth>} />
             </Route>
 
             <Route path="profile" element={<RequireAuth> <ProfileLists/> </RequireAuth>} />
@@ -48,10 +49,10 @@ function App() {
 
             <Route path="products">
               <Route index element={<RequireAuth> <ProductLists /> </RequireAuth>} />
-              <Route path=":productId" element={<RequireAuth> <Single /> </RequireAuth>} />
+              <Route path=":productId" element={<RequireAuth> < ViewProductsSingle /> </RequireAuth>} />
               <Route
                 path="new"
-                element={ <RequireAuth> <NewProducts inputs={productInputs} title="Add NewProducts Product" /> </RequireAuth>}
+                element={ <RequireAuth> <NewProducts inputs={productInputs} title="Add New Products" /> </RequireAuth>}
               />
             </Route>
           </Route>

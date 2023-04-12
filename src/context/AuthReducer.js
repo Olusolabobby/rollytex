@@ -18,6 +18,14 @@ const AuthReducer = (state, action) => {
                 }
             };
         }
+        case "PRODUCT" : {
+            return {
+                currentProduct: {
+                    ...state.currentProduct,
+                    newIdToShow: action.payload,
+                }
+            };
+        }
         default:
             return state;
     }
