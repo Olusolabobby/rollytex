@@ -13,14 +13,14 @@ import DriveFolderUploadOutlinedIcon from "@mui/icons-material/DriveFolderUpload
 import App from "../../App";
 
 const ViewProductsSingle = () => {
-  const [product, setProduct] = useState([]);
+  const [product, setProduct] = useState();
   const [file, setFile] = useState("");
   const [editId, setEditId] = useState("");
   const [editFormValues, setEditFormValues] = useState({});
   const [perc, setPerc] = useState(null); // to allow the image show in the users collection in firebase
 
-  const productIDToShow = useContext(AuthContext).currentProduct.newIdToShow;
-  console.log("productIDToShow", productIDToShow);
+  // const productIDToShow = useContext(AuthContext).currentProduct.newIdToShow;
+  const productIDToShow = useContext(AuthContext).productIdToShow
 
   useEffect(() => {
     const fetchData = async () => {
@@ -32,9 +32,9 @@ const ViewProductsSingle = () => {
             id: doc.id,
           }));
           setProduct(
-            data?.filter((product) => product?.id === productIDToShow)
+            data?.filter((product) => product?.id === productIDToShow)[0]
           );
-          console.log(data);
+          console.log( data?.filter((product) => product?.id === productIDToShow)[0]);
         });
       } catch (err) {
         console.log(err);
@@ -115,8 +115,18 @@ const ViewProductsSingle = () => {
               Edit
             </div>
             <h1 className="title">Information</h1>
+            {console.log(product)}
 
-            {/*{product &&*/}
+            {/*Todo move to new Component*/}
+            {/*{product && <ProductInfo product={product} />}*/}
+            {/*Todo move to new Component*/}
+
+
+            {product &&
+              <img src={product?.img ? product?.img : 'AVATAR'} alt="" className="itemImg" />
+            }
+
+            }
             {/*  product.map((product) =>*/}
             {/*    editId !== product?.id ? (*/}
             {/*      <div className="item" key={product.id}>*/}

@@ -2,15 +2,17 @@ import "./ProductDatatable.scss";
 import { DataGrid } from "@mui/x-data-grid";
 import { productColumns, userRows } from "../../ProductDatatablesource";
 import { Link } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useReducer, useContext } from "react";
 import { collection, getDocs, onSnapshot, doc, deleteDoc } from "firebase/firestore";
 import {db} from "../../firebase";
+import AuthReducer from '../../context/AuthReducer.js';
+import { AuthContext } from '../../context/AuthContext.js';
 
 
 
 const ProductsDatatable = () =>{
     const [data, setData] = useState([]);
-
+    const {dispatch} = useContext(AuthContext)
     useEffect( ()=> {
         // const fetchData = async () => {
         //     let list = [];
@@ -63,7 +65,10 @@ const ProductsDatatable = () =>{
             renderCell: (params) => {
                 return (
                     <div className="cellAction">
-                        <Link to="ViewProductsSingle" style={{ textDecoration: "none" }}>
+                        <Link to="ViewProductsSingle" style={{ textDecoration: "none" }}
+                              onClick={()=>{dispatch({type: "PRODUCT", payload:params.row.id})}}
+                        >
+
                             <div className="viewButton">View</div>
                         </Link>
                         <div

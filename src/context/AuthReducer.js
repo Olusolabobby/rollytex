@@ -12,6 +12,7 @@ const AuthReducer = (state, action) => {
         }
         case "SHOW": {
             return {
+                ...state,
                 currentUser: {
                     ...state.currentUser,
                     idToShow: action.payload,
@@ -20,10 +21,8 @@ const AuthReducer = (state, action) => {
         }
         case "PRODUCT" : {
             return {
-                currentProduct: {
-                    ...state.currentProduct,
-                    newIdToShow: action.payload,
-                }
+                ...state,
+               productIdToShow: action.payload,
             };
         }
         default:
