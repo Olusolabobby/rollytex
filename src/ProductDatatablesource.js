@@ -26,6 +26,11 @@ export const productColumns = [
     width: 230,
   },
 
+  {
+    field: "description",
+    headerName: "Description",
+    width: 230,
+  },
 
   {
     field: "stock",
