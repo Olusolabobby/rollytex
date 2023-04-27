@@ -10,15 +10,19 @@ import { DarkModeContext } from "../../context/darkModeContext";
 import {useContext, useEffect, useState} from "react";
 import {collection, doc, getDoc, onSnapshot} from "firebase/firestore";
 import {db} from "../../firebase";
+import { Link } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 
 const Navbar = () => {
   const { dispatch } = useContext(DarkModeContext);
 
   const [user, setUser] = useState([]);
+  const [products, setProducts] = useState([]);
   const [searchInput, setSearchInput] = useState( '');
   const [users, setUsers] = useState([]);
   const [searchResults, setSearchResults] = useState([]);
 
+  const navigate = useNavigate();
 
 
 
@@ -35,6 +39,20 @@ const Navbar = () => {
           setUsers(data);
           // console.log(list);
         })
+
+        onSnapshot(
+          collection(db, "products"),
+          (snapShot) => {
+            let list = [];
+            snapShot.docs.forEach((doc) => {
+              list.push({ id: doc.id, ...doc.data() });
+            });
+            setProducts(list)
+          }, (error) => {
+            console.log (error);
+          });
+
+
       }catch(err){
         console.log(err);
       }
@@ -49,15 +67,21 @@ const Navbar = () => {
     return () => clearTimeout(timer)
   }, [searchInput]);
 
-  
+
   const searchUsers = (value) => {
     console.log('searching');
-    console.log('users', users);
+    console.log('users', users, products);
     const filteredUsers = users.filter(items =>
         (items?.displayName.toLowerCase().includes(searchInput.toLowerCase())
         || items?.email.toLowerCase().includes(searchInput.toLowerCase())));
-        console.log('filteredUsers', filteredUsers);
-        setSearchResults(filteredUsers)
+        // console.log('filteredUsers', filteredUsers);
+    const filteredProducts = products.filter(items =>
+      items?.title?.toLowerCase().includes(searchInput.toLowerCase()));
+      // (items?.description?.toLowerCase().includes(searchInput.toLowerCase())
+      //   || items?.title?.toLowerCase().includes(searchInput.toLowerCase())));
+    // console.log('filteredUsers', filteredUsers);
+    console.log([...filteredUsers, ...filteredProducts])
+        setSearchResults([...filteredUsers, ...filteredProducts])
   }
 
 
@@ -78,7 +102,13 @@ console.log('searchInput', searchInput)
 
           {searchResults?.length > 0 && <div className="searchResults">
             <div className="searchBox" >
-              {searchResults.map(result => <p><img className="searchImage" src={result.img}/> {result.displayName}</p>)}
+              {searchResults.map(result =>
+                  <p onClick={()=> {
+                    navigate(result?.username ?  ('/users/' + result.username) : ('/products/' + result?.title))
+                  }}>
+                  <img className="searchImage" src={result.img}/> {result?.displayName || result?.title}
+                  </p>
+)}
 
             </div>
           </div>}

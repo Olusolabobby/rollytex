@@ -35,26 +35,39 @@ function App() {
             <Route path="login" element={<Login />} />
             <Route index element={ <RequireAuth> <Home /> </RequireAuth>} />
 
-            <Route path="users">
+            <Route path="/users">
               <Route index element={<RequireAuth> <List /> </RequireAuth>} />
-              <Route path=":userId" element={<RequireAuth> <Single /> </RequireAuth>} />
-              <Route
-                path="new"
-                element={<RequireAuth> <New inputs={userInputs} title="Add New User" /> </RequireAuth>} />
+              {/*<Route path=":userId" element={<RequireAuth> <Single /> </RequireAuth>} />*/}
+              {/*<Route*/}
+              {/*  path="new"*/}
+              {/*  element={<RequireAuth> <New inputs={userInputs} title="Add New User" /> </RequireAuth>} />*/}
             </Route>
-
+            <Route path="/users/:userId" element={<RequireAuth> <Single /> </RequireAuth>} />
+            <Route
+              path="/users/new"
+              element={<RequireAuth> <New inputs={userInputs} title="Add New User" /> </RequireAuth>} />
             <Route path="profile" element={<RequireAuth> <ProfileLists/> </RequireAuth>} />
             <Route path="orders" element={<RequireAuth> <OrdersLists/> </RequireAuth>} />
             <Route path="delivery" element={<RequireAuth> <DeliveryLists/> </RequireAuth>} />
 
-            <Route path="products">
+            {/*<Route path="/products">*/}
+            {/*  <Route index element={<RequireAuth> <ProductLists /> </RequireAuth>} />*/}
+            {/*  <Route path=":productId" element={<RequireAuth> < ViewProductsSingle /> </RequireAuth>} />*/}
+            {/*  <Route*/}
+            {/*    path="new"*/}
+            {/*    element={ <RequireAuth> <NewProducts inputs={productInputs} title="Add New Products" /> </RequireAuth>}*/}
+            {/*  />*/}
+            {/*</Route>*/}
+            <Route path="/products">
               <Route index element={<RequireAuth> <ProductLists /> </RequireAuth>} />
-              <Route path=":productId" element={<RequireAuth> < ViewProductsSingle /> </RequireAuth>} />
-              <Route
-                path="new"
-                element={ <RequireAuth> <NewProducts inputs={productInputs} title="Add New Products" /> </RequireAuth>}
-              />
             </Route>
+            <Route path="/products/:productId" element={<RequireAuth> < ViewProductsSingle /> </RequireAuth>} />
+            <Route
+              path="/products/new"
+              element={ <RequireAuth> <NewProducts inputs={productInputs} title="Add New Products" /> </RequireAuth>}
+            />
+
+
           </Route>
         </Routes>
       </BrowserRouter>

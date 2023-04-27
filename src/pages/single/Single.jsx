@@ -10,6 +10,7 @@ import {AuthContext} from "../../context/AuthContext";
 import {setFormData} from "../../jsHelpers/js-Helpers";
 import {getDownloadURL, ref, uploadBytesResumable} from "firebase/storage";
 import DriveFolderUploadOutlinedIcon from "@mui/icons-material/DriveFolderUploadOutlined";
+import { useParams } from 'react-router-dom';
 
 const Single = () => {
 
@@ -19,7 +20,25 @@ const Single = () => {
   const [editFormValues, setEditFormValues] = useState({});
   const [perc, setPerc] = useState (null); // to allow the image show in the users collection in firebase
 
+  const { userId } = useParams();
 
+
+  useEffect(()=>{
+    userId && onSnapshot(
+      collection(db, "users"),
+      (snapShot) => {
+        snapShot.docs.forEach((doc) => {
+          const user = {...doc.data()}
+          user?.username === userId && setUser([{
+            id: doc.id, ...user
+          }])
+        });
+      }, (error) => {
+        console.log (error);
+      });
+  },[userId])
+
+  console.log('USER', user);
 
   const userIDToShow = useContext(AuthContext).currentUser.idToShow;
   // console.log('userIDToShow',userIDToShow)
@@ -28,21 +47,21 @@ const Single = () => {
   // console.log(authUser)
 
 
-  useEffect ( ()=> {
-    const fetchData = async () => {
-      try{
-        const collectionRef = await collection(db, "users");
-        onSnapshot(collectionRef, (snapshot) => {
-          const data = snapshot.docs.map((doc) => ({...doc.data(), id: doc.id}))
-          setUser(data?.filter(user => user?.id === userIDToShow))
-          console.log(data);
-        });
-      }catch(err){
-        console.log(err);
-      }
-    };
-    fetchData();
-  }, [])
+  // useEffect ( ()=> {
+  //   const fetchData = async () => {
+  //     try{
+  //       const collectionRef = await collection(db, "users");
+  //       onSnapshot(collectionRef, (snapshot) => {
+  //         const data = snapshot.docs.map((doc) => ({...doc.data(), id: doc.id}))
+  //         setUser(data?.filter(user => user?.id === userIDToShow))
+  //         console.log(data);
+  //       });
+  //     }catch(err){
+  //       console.log(err);
+  //     }
+  //   };
+  //   fetchData();
+  // }, [])
 
   const editUser = async(id, newUser = editFormValues) => {
     const docRef = doc(db,"users", id);
@@ -109,7 +128,7 @@ const Single = () => {
             <div className="left">
               {/*<div className="editButton" onClick={ ()=> setEditId(user[0].id)}>Edit</div>*/}
               <h1 className="title" >Information</h1>
-
+              {user.length === 0 && <h1>Loading ...</h1>}
               {user && user.map((user) => (
                   editId !== user?.id
                   ? (<div className="item" key={user.id}>

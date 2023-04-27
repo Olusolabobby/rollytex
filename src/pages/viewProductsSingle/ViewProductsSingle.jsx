@@ -7,36 +7,54 @@ import React, { useContext, useEffect, useState, useRef } from "react";
 import { db } from "../../firebase";
 import { collection, onSnapshot } from "firebase/firestore";
 import { AuthContext } from "../../context/AuthContext";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 const ViewProductsSingle = () => {
   const [product, setProduct] = useState();
   const navigate = useNavigate();
+  const { productId } = useParams();
 
+  console.log(productId);
   const productIDToShow = useContext(AuthContext).productIdToShow;
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const collectionRef = await collection(db, "products");
-        onSnapshot(collectionRef, (snapshot) => {
-          const data = snapshot.docs.map((doc) => ({
-            ...doc.data(),
-            id: doc.id,
-          }));
-          setProduct(
-            data?.filter((product) => product?.id === productIDToShow)[0]
-          );
-          // console.log(
-          //   data?.filter((product) => product?.id === productIDToShow)[0]
-          // );
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     try {
+  //       const collectionRef = await collection(db, "products");
+  //       onSnapshot(collectionRef, (snapshot) => {
+  //         const data = snapshot.docs.map((doc) => ({
+  //           ...doc.data(),
+  //           id: doc.id,
+  //         }));
+  //         setProduct(
+  //           data?.filter((product) => product?.id === productIDToShow)[0]
+  //         );
+  //         // console.log(
+  //         //   data?.filter((product) => product?.id === productIDToShow)[0]
+  //         // );
+  //       });
+  //     } catch (err) {
+  //       console.log(err);
+  //     }
+  //   };
+  //   fetchData();
+  // }, []);
+
+  useEffect(()=>{
+    productId && onSnapshot(
+      collection(db, "products"),
+      (snapShot) => {
+        snapShot.docs.forEach((doc) => {
+          const product = {...doc.data()}
+          product?.title === productId && setProduct({
+            id: doc.id, ...product
+          })
         });
-      } catch (err) {
-        console.log(err);
-      }
-    };
-    fetchData();
-  }, []);
+      }, (error) => {
+        console.log (error);
+      });
+  },[productId])
+
 
   const handleClose = () => {
     navigate(-1);
