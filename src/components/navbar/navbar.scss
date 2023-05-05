@@ -35,14 +35,11 @@
       display: flex;
       align-items: center;
 
-
       .item {
         display: flex;
         align-items: center;
         margin-right: 20px;
         position: relative;
-
-
 
         .icon {
           font-size: 20px;
@@ -70,43 +67,38 @@
           top: -5px;
           right: -5px;
         }
-
       }
     }
   }
 }
 
-.searchResults{
+.searchResults {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
   position: absolute;
-  min-width: 180px;
+  min-width: 15%;
   height: max-content;
-  border: 0.5px solid lightgray;
   //background-color: #ededed;
-  background-color: #FFFFFF;
+  background-color: #ffffff;
   z-index: 1;
 
-
-  .searchBox{
+  .searchBox {
     background-color: white;
     flex-direction: column;
-    width: 90%;
+    width: 84.5%;
     height: 100%;
     display: flex;
     align-content: center;
+    border: 0.5px solid lightgray;
 
-
-
-    p{
+    p {
       display: flex;
       align-items: center;
       margin: 7px;
 
-
-      .searchImage{
+      .searchImage {
         //width: 50px;
         //border-radius: 5px;
         margin: 0 5px;
@@ -119,12 +111,7 @@
         //display: table;
         overflow-x: hidden;
         overflow-y: scroll;
-
       }
     }
   }
-
-
 }
-
-

@@ -6,6 +6,140 @@ import Featured from "../../components/featured/Featured";
 import Chart from "../../components/chart/Chart";
 import Table from "../../components/table/Table";
 
+//Recurssion occurs when a function calls itself repeatedly until some base condition are met.
+// const data = {
+//   id: "1",
+//   name: "",
+//   children: [
+//     {
+//       id: "1.1",
+//       name: "",
+//       children: [
+//         {
+//           id: "1.1.2",
+//           name: "",
+//           children: [
+//             {
+//               id: "1.1.2.1",
+//               name: "",
+//               children: [{}],
+//             },
+//           ],
+//         },
+//       ],
+//     },
+//     {
+//       id: "1.2",
+//       name: "",
+//       children: [
+//         {
+//           id: "1.2.1",
+//           name: "",
+//           children: [
+//             {
+//               id: "1.2.2",
+//               name: "",
+//               children: [{}],
+//             },
+//           ],
+//         },
+//       ],
+//     },
+//   ],
+// };
+//
+// const flattenData = {
+//   1: {
+//     id: "1",
+//     name: "",
+//     children: [
+//       {
+//         id: "1.1",
+//         name: "",
+//         children: [
+//           {
+//             id: "1.1.2",
+//             name: "",
+//             children: [
+//               {
+//                 id: "1.1.2.1",
+//                 name: "",
+//                 children: [
+//                   {
+//                     id: "1.1.1.2",
+//                     name: "new",
+//                     children: [],
+//                   },
+//                 ],
+//               },
+//             ],
+//           },
+//         ],
+//       },
+//       {
+//         id: "1.2",
+//         name: "",
+//         children: [
+//           {
+//             id: "1.2.1",
+//             name: "",
+//             children: [
+//               {
+//                 id: "1.2.2",
+//                 name: "",
+//                 children: [{}],
+//               },
+//             ],
+//           },
+//         ],
+//       },
+//     ],
+//   },
+//   1.1: {
+//     id: "1.1",
+//     name: "",
+//     children: [
+//       {
+//         id: "1.1.2",
+//         name: "",
+//         children: [
+//           {
+//             id: "1.1.2.1",
+//             name: "",
+//             children: [{}],
+//           },
+//         ],
+//       },
+//     ],
+//   },
+// };
+// console.log(data);
+//
+// const getFlattenData = (obj) => {
+//   // const flattenObj = {
+//   //   [obj.id]: obj,
+//   // };
+//   const flattenObj = [];
+//   flattenObj.push(obj);
+//   const getChildren = (childrenArray) => {
+//     childrenArray.forEach((child) => {
+//       // flattenObj[child.id] = child;
+//       flattenObj.push(child);
+//       child?.children && getChildren(child?.children);
+//     });
+//   };
+//
+//   obj?.children && getChildren(obj?.children);
+//
+//   console.log("flattenObj", flattenObj);
+//
+//   return flattenObj;
+// };
+// // getFlattenData(data);
+//
+// const newObject = getFlattenData(data);
+// console.log(newObject, newObject.filter((item) => item.id === "1.1")[0]);
+
 const Home = () => {
   // const data = {
   //   id:"1",
