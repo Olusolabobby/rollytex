@@ -104,7 +104,7 @@ console.log('searchInput', searchInput)
             <div className="searchBox" >
               {searchResults.map(result =>
                   <p onClick={()=> {
-                    navigate(result?.username ?  ('/users/' + result.username) : ('/products/' + result?.title))
+                    navigate(result?.username ?  ('/users/' + result.id) : ('/products/' + result?.id))
                   }}>
                   <img className="searchImage" src={result.img}/> {result?.displayName || result?.title}
                   </p>

@@ -65,7 +65,7 @@ const ProductsDatatable = () =>{
             renderCell: (params) => {
                 return (
                     <div className="cellAction">
-                        <Link to="ViewProductsSingle" style={{ textDecoration: "none" }}
+                        <Link to={`/products/${params.row.id}`} style={{ textDecoration: "none" }}
                               onClick={()=>{dispatch({type: "PRODUCT", payload:params.row.id})}}
                         >
 

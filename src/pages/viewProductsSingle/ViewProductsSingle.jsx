@@ -14,7 +14,7 @@ const ViewProductsSingle = () => {
   const navigate = useNavigate();
   const { productId } = useParams();
 
-  console.log(productId);
+  console.log('product', productId, product);
   const productIDToShow = useContext(AuthContext).productIdToShow;
 
   // useEffect(() => {
@@ -45,8 +45,8 @@ const ViewProductsSingle = () => {
       collection(db, "products"),
       (snapShot) => {
         snapShot.docs.forEach((doc) => {
-          const product = {...doc.data()}
-          product?.title === productId && setProduct({
+          const product = {...doc.data(), id: doc.id}
+          product?.id === productId && setProduct({
             id: doc.id, ...product
           })
         });

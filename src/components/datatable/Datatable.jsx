@@ -78,7 +78,7 @@ const Datatable = () => {
                 return (
                     <div className="cellAction">
                         {/*{console.log(params, 'params')}*/}
-                        <Link to={`/users/${params.row.username}`} style={{ textDecoration: "none" }} onClick={()=>dispatch({type: "SHOW", payload:params.row.id})}>
+                        <Link to={`/users/${params.row.id}`} style={{ textDecoration: "none" }} onClick={()=>dispatch({type: "SHOW", payload:params.row.id})}>
                             <div className="viewButton" >View</div>
                         </Link>
                         <div

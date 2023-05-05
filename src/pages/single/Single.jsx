@@ -28,8 +28,8 @@ const Single = () => {
       collection(db, "users"),
       (snapShot) => {
         snapShot.docs.forEach((doc) => {
-          const user = {...doc.data()}
-          user?.username === userId && setUser([{
+          const user = {...doc.data(), id: doc.id}
+          user?.id === userId && setUser([{
             id: doc.id, ...user
           }])
         });
